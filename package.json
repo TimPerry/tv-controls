@@ -8,9 +8,6 @@
     "ps4-waker": "^1.1.0",
     "request": "^2.79.0"
   },
-  "devDependencies": {
-    "sony-bravia-tv-remote": "^1.0.4"
-  },
   "scripts": {
     "start": "node index.js"
   },

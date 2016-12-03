@@ -1,7 +1,6 @@
 var express = require('express')
 var app = express()
 var request = require('request')
-var ps4 = require('ps4-waker')
 
 var BraviaRemoteControl = require('sony-bravia-tv-remote');
 
@@ -11,7 +10,9 @@ app.get('/', function (req, res) {
 })
 
 app.get('/ps4/:state', function (req, res) {
-  ps4.wake();
+  const spawn = require('child_process').spawn;
+  var args = req.params.state === 'true' ? [] : ['standby']
+  spawn('./node_modules/.bin/ps4-waker', args, { stdio: 'inherit' }); 
   res.json({done: true});
 })
 
