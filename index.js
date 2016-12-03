@@ -1,12 +1,23 @@
 var express = require('express')
 var app = express()
 var request = require('request')
-
-var BraviaRemoteControl = require('sony-bravia-tv-remote');
-
+var SkyRemote = require('sky-remote');
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
+})
+
+app.get('/sky/:state', function (req, res) {
+  var remoteControl = new SkyRemote('192.168.1.11');
+
+  remoteControl.press('power', function(err) {
+    if (err) {
+        console.log("Woah! Something went wrong. Cry time.");
+    } else {
+        console.log("I just pressed the Channel Up command.");
+    };
+    res.send('done')
+  });
 })
 
 app.get('/ps4/:state', function (req, res) {

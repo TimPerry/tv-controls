@@ -6,11 +6,16 @@
   "dependencies": {
     "express": "^4.14.0",
     "ps4-waker": "^1.1.0",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "sky-remote": "^1.0.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
