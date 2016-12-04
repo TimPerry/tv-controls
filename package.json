@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "denon-avr": "0.0.5",
     "express": "^4.14.0",
     "ps4-waker": "^1.1.0",
     "request": "^2.79.0",

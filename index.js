@@ -2,9 +2,36 @@ var express = require('express')
 var app = express()
 var request = require('request')
 var SkyRemote = require('sky-remote');
+var denon = require('denon-avr');
+
+var avr = new denon(new denon.transports.telnet({
+  host: '192.168.1.10',     // IP address or hostname
+  debug: true   // Debug enabled
+}));
+avr.connect();
+
+process.on('SIGINT', function () {
+  console.log("Caught interrupt signal");
+
+  avr.getConnection().destroy();
+  process.exit(0);
+});
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
+})
+
+app.get('/avr/vol/:ammount', function (req, res) {
+  avr.setVolumeAscii(req.params.ammount, function(err, volume) {
+    if (err) {
+      console.log(err.toString());
+      res.send('error: ' + err.toString()) 
+      return;
+    }
+ 
+    res.send('done') 
+    console.log('The volume is now', volume, '/', avr.parseAsciiVolume(volume), 'dB');
+  });
 })
 
 app.get('/sky/:state', function (req, res) {
