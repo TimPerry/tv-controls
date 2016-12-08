@@ -2,8 +2,21 @@ var express = require('express')
 var app = express()
 var request = require('request')
 var SkyRemote = require('sky-remote');
-var denon = require('denon-avr');
 
+var adb = require('adbkit')
+var client = adb.createClient()
+
+var fireTvId = 0
+client.connect('192.168.1.4')
+  .then(function(id) {
+    fireTvId = id
+    console.log(`Connected to FireTV with device id of ${id}`)
+  })
+  .catch(function(err) {
+    console.error('Something went wrong connecting to FireTV:', err.stack)
+  })
+
+var denon = require('denon-avr');
 var avr = new denon(new denon.transports.telnet({
   host: '192.168.1.10',     // IP address or hostname
   debug: true   // Debug enabled
@@ -19,6 +32,30 @@ process.on('SIGINT', function () {
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
+})
+
+app.get('/firetv/:app', function (req, res) {
+ avr.send('SIBD', '', function(err, state) {
+   if (err && err.length) {
+     return res.send(err)
+   }
+   var apps = {
+     netflix: 'com.netflix.ninja',
+     youtube: 'org.chromium.youtube_apk',
+     iplayer: 'uk.co.bbc.iplayer',
+     home: 'com.amazon.tv.launcher'
+   }
+   var packageName = apps[req.params.app]
+   if(!packageName) {
+     return res.send('Invalid app')
+   }
+   client.shell(fireTvId, `monkey -p ${packageName} -c android.intent.category.LAUNCHER 1`)
+     .then(adb.util.readAll)
+     .then(function(output) {
+       console.log(output.toString().trim())
+       res.send('done')
+     })
+   }, 'Unable to select fire tv input on avr')
 })
 
 app.get('/avr/vol/:ammount', function (req, res) {
