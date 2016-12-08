@@ -7,7 +7,7 @@ var adb = require('adbkit')
 var client = adb.createClient()
 
 var fireTvId = 0
-client.connect('192.168.1.4')
+client.connect('192.168.1.12')
   .then(function(id) {
     fireTvId = id
     console.log(`Connected to FireTV with device id of ${id}`)
