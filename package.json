@@ -13,7 +13,7 @@
     "sky-remote": "^1.0.3"
   },
   "scripts": {
-    "start": "pm2 start index.js --name tv-controls -e /var/log/tv-controls.err.log -o /var/log/tv-controls.out.log",
+    "start": "pm2 start --name tv-controls index.js",
     "stop": "pm2 stop tv-controls",
     "dev": "nodemon index.js"
   },
