@@ -49,6 +49,14 @@ app.get('/', function(req, res) {
   return helpers.buildValidResponse(res)({status: 'ok'})
 })
 
+app.get('/livingRoom', function(req, res) {
+  let payload = {}
+  for (var device in livingRoom) {
+    payload[device] = livingRoom[device] !== false ? 'Online' : 'Offline'
+  }
+  return helpers.buildValidResponse(res)(payload)
+})
+
 app.listen(4242, function () {
   helpers.log('info', 'Server started on port 4242')
 })

@@ -16,6 +16,7 @@ const roomBuilder = (roomDevices) => {
           room[device.name] = deviceObj(device.address)
         }
       } catch (e) {
+        log('error', `There was a problem trying to device ${device.name}. Details: ${e.message}`)
         room[device.name] = false
       }
     })
