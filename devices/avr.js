@@ -42,7 +42,9 @@ const setVolume = (avr) => (targetVolume) => new Promise((resolve, reject) => {
 
 module.exports = function(address) {
   const avr = new denon(new denon.transports.telnet({
-    host: address
+    host: address,
+    timeout: 5000,
+    execTimeout: 5000
   }));
   avr.connect();
   process.on('SIGINT', function () {
