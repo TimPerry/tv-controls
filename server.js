@@ -52,7 +52,7 @@ app.get('/', function(req, res) {
 app.get('/livingRoom', function(req, res) {
   let payload = {}
   for (var device in livingRoom) {
-    payload[device] = livingRoom[device] !== false ? 'Online' : 'Offline'
+    payload[device] = livingRoom[device] !== false ? 'success' : 'error'
   }
   return helpers.buildValidResponse(res)(payload)
 })
