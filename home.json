@@ -4,15 +4,15 @@
         "livingRoom": [
             {
                 "name": "avr",
-                "address": "192.168.1.10"
+                "address": "192.168.1.82"
             },
             {
                 "name": "firetv",
-                "address": "192.168.1.12:5555"
+                "address": "192.168.1.83:5555"
             },
             {
                 "name": "tv",
-                "address": "192.168.1.16"
+                "address": "192.168.1.80"
             },
             {
                 "name": "ps4",
@@ -20,7 +20,7 @@
             },
             {
                 "name": "sky",
-                "address": "192.168.1.11"
+                "address": "192.168.1.81"
             }
         ]
     }
