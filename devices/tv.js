@@ -26,7 +26,7 @@ const setPowerStatus = address => status => {
           return resolve(`TV Already on, not doing anything. Details: ${errorMessage}`)
         }
       }
-      return resolve(body)
+      return resolve(`TV state was successfully set to ${status}`)
     })
   })
 }

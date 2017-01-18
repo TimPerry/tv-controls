@@ -1,14 +1,14 @@
 const fs = require('fs')
 
-const buildValidResponse = res => payload => res.json({payload})
-const buildErrorResponse = res => error => res.json({error: error.message})
-
 const log = (level, message) => console.log(`[${level.toUpperCase()}] ${message}`)
 
 const roomBuilder = (roomDevices) => {
   try {
     let room = {}
     roomDevices.forEach((device) => {
+      if(device.disabled) {
+        return false
+      }
       try {
         const deviceFile = `./devices/${device.name}.js`
         if (fs.existsSync(deviceFile)) {
@@ -17,7 +17,6 @@ const roomBuilder = (roomDevices) => {
         }
       } catch (e) {
         log('error', `There was a problem trying to device ${device.name}. Details: ${e.message} . Line number: ${e.stack.split('\n')[0]}`)
-        room[device.name] = false
       }
     })
     return room
@@ -26,12 +25,7 @@ const roomBuilder = (roomDevices) => {
   }
 }
 
-const parseBoolean = (boolStr) => JSON.parse(boolStr)
-
 module.exports = {
-  buildValidResponse,
-  buildErrorResponse,
   roomBuilder,
-  log,
-  parseBoolean
+  log
 }
