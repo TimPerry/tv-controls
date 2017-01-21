@@ -12,8 +12,7 @@ const {
  GraphQLObjectType
 } = require('graphql')
 
-const defaultRoom = 'livingRoom'
-const getRoom = (roomName) => roomName ? rooms[roomName] : rooms[defaultRoom]
+const getRoom = (roomName) => rooms[roomName]
 
 const query = new GraphQLObjectType({
   name: 'Query',

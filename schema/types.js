@@ -6,6 +6,8 @@ const {
  GraphQLFloat
 } = require('graphql')
 
+const {defaultRoom} = require('../home.json')
+
 module.exports = {
   StateType: {
     type: new GraphQLNonNull(GraphQLBoolean),
@@ -13,7 +15,8 @@ module.exports = {
   },
   RoomType: {
     type: GraphQLString,
-    description: "The room this device is in, defaults to living room"
+    description: `The room this device is in. Defaults to ${defaultRoom}`,
+    defaultValue: defaultRoom
   },
   SourceInputType: {
     type: GraphQLString,

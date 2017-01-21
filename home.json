@@ -1,10 +1,12 @@
 {
     "name": "Perry's House",
+    "defaultRoom": "livingRoom",
     "rooms": {
         "livingRoom": [
             {
                 "name": "avr",
-                "address": "192.168.1.82"
+                "address": "192.168.1.82",
+                "disabled": true
             },
             {
                 "name": "firetv",
